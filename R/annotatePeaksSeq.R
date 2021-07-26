@@ -8,7 +8,7 @@
 #' The seqnames returned by makeDictyGrangesfromTxDb are 1, 2, 3, 4, 5, 6 and so I change the input seqnames
 #' to match before converting them back to what they were previously after.
 #'
-#' @param x
+#' @param x GRanges object
 #' @param tssRegionStart number : default is -3000bp - what is set by ChIPseeker::annotatePeak - can be changed!
 #' @param tssRegionEnd number : default is 3000bp - what is set by ChIPseeker::annotatePeak - can be changed!
 #'

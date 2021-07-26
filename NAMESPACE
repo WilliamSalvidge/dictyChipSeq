@@ -3,5 +3,6 @@
 export(addExtraAnnotation)
 export(add_broadPeak_columnNames)
 export(add_narrowPeak_columnNames)
+export(annotatePeaksSeq)
 export(dropDictyChromosomes)
 export(makeDictyGrangesfromTxDb)
