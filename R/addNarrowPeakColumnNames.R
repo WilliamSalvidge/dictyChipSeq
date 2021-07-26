@@ -17,4 +17,3 @@ add_narrowPeak_columnNames = function (x) {
   return (x)
 
 }
-
