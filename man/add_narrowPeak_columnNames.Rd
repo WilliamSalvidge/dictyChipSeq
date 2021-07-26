@@ -14,5 +14,5 @@ Granges object
 }
 \description{
 The chipSeeker readPeakFile function creates a GRanges object but the narrowPeak column names are missing.
-This function adds them in
+This function adds them in.
 }
