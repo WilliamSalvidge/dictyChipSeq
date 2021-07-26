@@ -15,11 +15,11 @@ TPM matrix
 \description{
 TPM (Transcript per Million) normalisation of Ax4 RNA-Seq data. Returns Genes and norm expression for those genes with above zero readcount.
 TPM normalises gene expression with gene length included.
-See StatQuest RPKM, FPKM and TPM, Clearly Explained!!! on YouTube for good explanation.
+See \href{https://www.youtube.com/watch?v=TTUrtCY2k-w}{StatQuest RPKM FPKM and TPM Clearly Explained} on YouTube for good explanation.
 }
 \details{
 This could maybe be split into two functions one which gets the width of genes from the dicty TxDb object
 another which actually does the TPM calculation
 
-Extra info: https://support.bioconductor.org/p/91218/ Mike Love guy who created DESEq2. All columns now = 1e6 as he says it should
+Extra info: \href{https://support.bioconductor.org/p/91218/}{Bioconductor Forum Page} Mike Love guy who created DESEq2. All columns now = 1e6 as he says it should
 }
