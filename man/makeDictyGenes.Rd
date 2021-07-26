@@ -11,5 +11,5 @@ A list of GRanges. First is a GRanges of all dicty genes.
 Then just positive strand dicty genes and then negative strand dicty genes.
 }
 \description{
-Calls makeDictyGRangesfromTxdb(). The gets the genes GRanges from that.
+Calls makeDictyGRangesfromTxdb(). The gets the genes GRanges from that. Then drops all but chromosome 1- 6 and returns a list of GRanges.
 }
