@@ -15,7 +15,9 @@ dropDictyChromosomes = function(x) {
                            "DDB0232431", "DDB0232432", "DDB0232433")
 
 
-  return (GenomeInfoDb::dropSeqlevels(x, seqlevels(x)[ ! ( seqlevels(x) %in% dictyChromosomes1to6)], pruning.mode=c("coarse")))
+  return (GenomeInfoDb::dropSeqlevels(x,
+                                      GenomeInfoDb::seqlevels(x)[ ! ( GenomeInfoDb::seqlevels(x) %in% dictyChromosomes1to6)],
+                                      pruning.mode=c("coarse")))
 
 }
 
