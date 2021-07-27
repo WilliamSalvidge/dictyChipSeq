@@ -26,7 +26,8 @@ you do return GRanges objects that contain peaks that have been assigned to high
 care that each peak has only been assigned to 1 geneID. It just looks to see if that peak overlaps with the promoters of any genes and then returns
 that in the tagMatrix. In the following functions we go in and take out any incorrect coverage!
 
-Each call to getTagMatrixWill will generate a Windows GRange with an index attached. Worthwhile checking thatt are all identical.
+Each call to getTagMatrixWill will generate a Windows GRange with an index attached. Worthwhile checking that are all identical.
+all(start(testGetTagMats$Genes_1_to_1042$Windows) == start(testGetTagMats$Genes_1042_to_2082$Windows)) << maybe use to compare.
 
 It can also just accept a GRanges object in the y paramter in which case the output will contain only 1 tagMatrix and windows.
 }
