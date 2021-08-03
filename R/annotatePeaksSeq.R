@@ -15,10 +15,10 @@
 #' @return
 #' @export
 annotatePeaksSeq = function(x, tssRegionStart = -3000, tssRegionEnd = 3000) {
-  seqlevels(x) <- c("DDB0232428" = "1", "DDB0232429" = "2", "DDB0232430" = "3",
+  GenomeInfoDb::seqlevels(x) <- c("DDB0232428" = "1", "DDB0232429" = "2", "DDB0232430" = "3",
                     "DDB0232431" = "4", "DDB0232432" = "5", "DDB0232433" = "6")
   y <- ChIPseeker::annotatePeak(x, tssRegion=c(tssRegionStart, tssRegionEnd), TxDb=makeDictyGrangesfromTxDb())
-  seqlevels(y@anno) = c("1" = "DDB0232428", "2" = "DDB0232429", "3" = "DDB0232430",
+  GenomeInfoDb::seqlevels(y@anno) = c("1" = "DDB0232428", "2" = "DDB0232429", "3" = "DDB0232430",
                         "4" = "DDB0232431", "5" = "DDB0232432", "6" = "DDB0232433")
   return(y)
 

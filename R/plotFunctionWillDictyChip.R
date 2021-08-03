@@ -1,3 +1,9 @@
+#' plotFunctionWillDictyChip
+#'
+#' @param x Takes in the output of rearrangeTagMatricesBasedOnSample() which is a list of tagN
+#'
+#' @return Dataframe
+#' @export
 plotFunctionWillDictyChip = function(x) {
 
   plotList = list()
@@ -27,6 +33,7 @@ plotFunctionWillDictyChip = function(x) {
   }
 
   plotTable = do.call(rbind, plotList)
+  plotTable$sample = as.factor(plotTable$sample)
   return (plotTable)
 
 }

@@ -10,8 +10,8 @@
 #' @export
 makeDictyGrangesfromTxDb = function() {
 
-  mart <- biomaRt::useMart(biomart="protists_mart",
-                           host="protists.ensembl.org") # make connection to db
+  #mart <- biomaRt::useMart(biomart="protists_mart",
+                           #host="protists.ensembl.org") # make connection to db
 
   #biomaRt::listDatasets(mart) # ddiscoideum_eg_gene shows up in this list
 
@@ -19,8 +19,6 @@ makeDictyGrangesfromTxDb = function() {
                                     dataset="ddiscoideum_eg_gene",
                                     host="protists.ensembl.org") # extract dicty data
 
-
   return (dicty_txdb)
 
 }
-

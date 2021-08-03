@@ -5,6 +5,7 @@
 #'
 #' @param x output from addGeneIdToIndex()
 #' @param y output from splitIntoBins(makeAx4TPM())
+#' @param z output from makeAx4TPM()
 #'
 #' @return Modified form of addGeneIdToIndex() output where mean and sample columns are added.
 #' @export

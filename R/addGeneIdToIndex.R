@@ -17,18 +17,18 @@ addGeneIdToIndex = function(x, y) {
   newList = list()
   newList2 = list()
 
-  testGRangePromsPlus = GRanges(seqnames=seqnames(y$dictyGenesPlus),
-                                ranges=IRanges(start=start(y$dictyGenesPlus),
-                                               end= end(y$dictyGenesPlus) - (width(y$dictyGenesPlus) - 3),
+  testGRangePromsPlus = GenomicRanges::GRanges(seqnames = GenomeInfoDb::seqnames(y$dictyGenesPlus),
+                                ranges = IRanges::IRanges(start=GenomicRanges::start(y$dictyGenesPlus),
+                                               end= GenomicRanges::end(y$dictyGenesPlus) - (GenomicRanges::width(y$dictyGenesPlus) - 3),
                                                names=y$dictyGenesPlus$gene_id),
-                                strand=strand(y$dictyGenesPlus),
+                                strand = GenomicRanges::strand(y$dictyGenesPlus),
                                 geneId = y$dictyGenesPlus$gene_id)
 
-  testGRangePromsNeg = GRanges(seqnames=seqnames(y$dictyGenesNeg),
-                               ranges=IRanges(start=end(y$dictyGenesNeg),
-                                              end=end(y$dictyGenesNeg) + 3,
-                                              names=y$dictyGenesNeg$gene_id),
-                               strand=strand(y$dictyGenesNeg),
+  testGRangePromsNeg = GenomicRanges::GRanges(seqnames = GenomeInfoDb::seqnames(y$dictyGenesNeg),
+                               ranges = IRanges::IRanges(start = GenomicRanges::end(y$dictyGenesNeg),
+                                              end = GenomicRanges::end(y$dictyGenesNeg) + 3,
+                                              names = y$dictyGenesNeg$gene_id),
+                               strand = GenomicRanges::strand(y$dictyGenesNeg),
                                geneId = y$dictyGenesNeg$gene_id)
 
 
@@ -37,23 +37,23 @@ addGeneIdToIndex = function(x, y) {
   for (i in names(x)) {
 
 
-    testGRange = GRanges(seqnames=seqnames(x[[i]]$Indices),
-                         ranges=IRanges(start=start(x[[i]]$Indices) + round((width(x[[i]]$Indices)[1] -1) /2),
-                                        end=end(x[[i]]$Indices) - (round((width(x[[i]]$Indices)[1] -1) /2) - 3),
-                                        names=x[[i]]$Indices$index),
-                         strand=strand(x[[i]]$Indices))
+    testGRange = GenomicRanges::GRanges(seqnames = GenomeInfoDb::seqnames(x[[i]]$Indices),
+                         ranges = IRanges::IRanges(start= GenomicRanges::start(x[[i]]$Indices) + round((GenomicRanges::width(x[[i]]$Indices)[1] -1) /2),
+                                        end = GenomicRanges::end(x[[i]]$Indices) - (round((GenomicRanges::width(x[[i]]$Indices)[1] -1) /2) - 3),
+                                        names = x[[i]]$Indices$index),
+                         strand = GenomicRanges::strand(x[[i]]$Indices))
 
 
 
-    testOvlp = subsetByOverlaps(testGRangeProms, testGRange)
+    testOvlp = IRanges::subsetByOverlaps(testGRangeProms, testGRange)
 
-    testOvlp = sortSeqlevels(testOvlp)
+    testOvlp = GenomeInfoDb::sortSeqlevels(testOvlp)
     testOvlp = sort(testOvlp)
 
-    testGRange = sortSeqlevels(testGRange)
+    testGRange = GenomeInfoDb::sortSeqlevels(testGRange)
     testGRange = sort(testGRange)
 
-    testOvlp$index =  ROWNAMES(testGRange)
+    testOvlp$index = S4Vectors::ROWNAMES(testGRange)
 
     newList[[i]] = testOvlp
     newList2[[i]] = testGRange

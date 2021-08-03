@@ -12,7 +12,7 @@
 #' @export
 getTagMatrixWill = function (peak, weightCol = NULL, windows, flip_minor_strand = TRUE)  {
   peak.gr <- ChIPseeker:::loadPeak(peak)
-  if (!is(windows, "GRanges")) {
+  if (!methods::is(windows, "GRanges")) {
     stop("windows should be a GRanges object...")
   }
   if (length(unique(GenomicRanges::width(windows))) != 1) {
@@ -26,7 +26,7 @@ getTagMatrixWill = function (peak, weightCol = NULL, windows, flip_minor_strand 
     peak.cov <- GenomicRanges::coverage(peak.gr, weight = weight)
   }
   cov.len <- S4Vectors::elementNROWS(peak.cov)
-  cov.width <- GenomicRanges::GRanges(seqnames = names(cov.len), IRanges(start = rep(1,
+  cov.width <- GenomicRanges::GRanges(seqnames = names(cov.len), IRanges::IRanges(start = rep(1,
                                                                       length(cov.len)), end = cov.len))
   # make GRanges of only promoters (windows) in the 6 chromosomes
   windows <- IRanges::subsetByOverlaps(windows, cov.width, type = "within",
@@ -34,12 +34,12 @@ getTagMatrixWill = function (peak, weightCol = NULL, windows, flip_minor_strand 
   # add index to windows (should be 13565)
   windows$index = seq(1, length(windows), by = 1)
   # character vector of 6 chromosome names
-  chr.idx <- IRanges::intersect(names(peak.cov), unique(as.character(seqnames(windows))))
+  chr.idx <- IRanges::intersect(names(peak.cov), unique(as.character(GenomicRanges::seqnames(windows))))
 
   # The subject is peak.cov which is the coverage 00000111110000 for example
   # against the promoter elements
   # Each promoter element is in there as a vector
-  peakView <- IRanges::Views(peak.cov[chr.idx], as(windows, "IntegerRangesList")[chr.idx])
+  peakView <- IRanges::Views(peak.cov[chr.idx], methods::as(windows, "IntegerRangesList")[chr.idx])
   # Takes the vectors and puts them into a matrix of there own (one matrix per chromosome in a list)
   tagMatrixList <- lapply(peakView, function(x) t(IRanges::viewApply(x,
                                                             as.vector)))

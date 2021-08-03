@@ -15,8 +15,8 @@ selectPromoterGRangesBasedOnTagMatrixIndex = function(x) {
 
     listOfIndices[[i]] = list()
     listOfIndices[[i]][["Indices"]] = x[[i]]$Windows[x[[i]]$Windows$index %in% row.names(x[[i]]$tagMatrix), ]
-    listOfIndices[[i]][["PlusIndices"]] = listOfIndices[[i]][["Indices"]][strand(listOfIndices[[i]][["Indices"]]) == "+", ]
-    listOfIndices[[i]][["NegIndices"]] = listOfIndices[[i]][["Indices"]][strand(listOfIndices[[i]][["Indices"]]) == "-", ]
+    listOfIndices[[i]][["PlusIndices"]] = listOfIndices[[i]][["Indices"]][GenomicRanges::strand(listOfIndices[[i]][["Indices"]]) == "+", ]
+    listOfIndices[[i]][["NegIndices"]] = listOfIndices[[i]][["Indices"]][GenomicRanges::strand(listOfIndices[[i]][["Indices"]]) == "-", ]
 
   }
 

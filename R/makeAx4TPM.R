@@ -16,7 +16,7 @@
 #' @export
 makeAx4TPM = function(x) {
 
-  ax4_set1_raw <- read.table(x)
+  ax4_set1_raw <- utils::read.table(x)
   ax4_veg_raw <- ax4_set1_raw[,c(1:3)]
 
   dicty_genes = GenomicFeatures::genes(makeDictyGrangesfromTxDb())
