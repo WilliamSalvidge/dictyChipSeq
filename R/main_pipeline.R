@@ -99,7 +99,7 @@ mainPipeLine = function(x, y, bins = 10, subsetGenes = NULL) {
   print("plotFunctionWillDictyChip completed")
   print(paste0("Current time elapsed = ", (Sys.time() - mainPipeStartTime), sep = ""))
 
-  set1Degs = getSet1DEGS("/Users/williamsalvidge/Dropbox/Will_PhD/Data/RNA_Seq/SET1_RNA_seq_1/Unormalised_read_counts/Unormalised_set1_readcounts.txt")
+  set1Degs = getSet1DEGS(y)
 
   w = set1DegOverlapNumbers(a, set1_up = set1Degs[["set1_up"]], set1_down = set1Degs[["set1_down"]])
 
