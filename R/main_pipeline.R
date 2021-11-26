@@ -4,10 +4,11 @@
 #' @param x filepath to narrowPeak or broadPeak file
 #' @param y filepath to 6 column un-normalised ax4 set1 readcounts file
 #' @param bins number of bins
+#' @param subsetGenes vector of genes that you wish to perform operations on
 #'
 #' @return list
 #' @export
-mainPipeLine = function(x, y, bins = 10) {
+mainPipeLine = function(x, y, bins = 10, subsetGenes = NULL) {
 
   mainPipeStartTime = Sys.time()
 
@@ -35,9 +36,30 @@ mainPipeLine = function(x, y, bins = 10) {
   x = annotatePeaksSeq(x)
   x = addExtraAnnotation(x)
 
-  x = getTagMatricesForDiffExpLevelBins(x = ax4Bins,
-                                        y = x,
-                                        z = dictyPromoters)
+  if (is.null(subsetGenes)) {
+
+    x = getTagMatricesForDiffExpLevelBins(x = ax4Bins,
+                                          y = x,
+                                          z = dictyPromoters)
+
+  }
+
+  else if (is.vector(subsetGenes)) {
+
+    # Convert dictyGenes GRange to a promoter GRange with geneID column
+    promoterConversionGRange = promotersWithGeneId(x = dictyGenes$dictyGenesPlus,
+                                               y = dictyGenes$dictyGenesNeg,
+                                               promoterStart = 2500,
+                                               promoterEnd = 2500)
+    # subset the promoter GRange with genes of interest
+    subsetPromoterGRange = promoterConversionGRange[promoterConversionGRange$geneId %in% subsetGenes, ]
+
+    x = getTagMatricesForDiffExpLevelBins(x = ax4Bins,
+                                          y = x,
+                                          z = subsetPromoterGRange)
+
+  }
+
 
   print("getTagMatricesForDiffExpLevelBins completed")
   print(paste0("Current time elapsed = ", (Sys.time() - mainPipeStartTime), sep = ""))

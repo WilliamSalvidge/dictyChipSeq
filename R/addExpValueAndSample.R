@@ -11,12 +11,26 @@
 #' @export
 addExpValueAndSample = function (x, y, z) {
 
-  newList = list()
+  #newList = list()
   timeStart = Sys.time()
 
-  lApplyOutput = lapply(x$OverlapGRanges, lApplyFunction, z=z)
+  if (names(x)[1] == "OverlapGRanges") {
 
-  newListMod = addSampleToNewList(lApplyOutput, y)
+    # Added multi-core lapply statement it works! but kind of useless here!
+    # lApplyOutput = parallel::mclapply(x$OverlapGRanges, lApplyFunction, z=z)
+    lApplyOutput = parallel::mclapply(x$OverlapGRanges, lApplyFunction, z=z)
+
+    newListMod = addSampleToNewList(lApplyOutput, y)
+
+  }
+
+  else if (names(x[[1]])[1] == "Indices") {
+
+    lApplyOutput = parallel::mclapply(x, lApplyFunction, z=z)
+
+    newListMod = addSampleToNewList(lApplyOutput, y)
+
+  }
 
   timeEnd = Sys.time()
   print("Total time elapsed")
@@ -29,8 +43,19 @@ addExpValueAndSample = function (x, y, z) {
 lApplyFunction = function(w, z) {
 
   roundStart = Sys.time()
-  print("Round started")
-  testEnd = w
+
+  if (names(w)[1] == "Indices") {
+
+    testEnd = w$Indices
+
+  }
+
+  else {
+
+    testEnd = w
+
+  }
+
   testEnd$mean = 0
   testEndGenes = z[z$geneId %in% testEnd$geneId, ]
 
@@ -83,14 +108,25 @@ addSampleToNewList = function(x, y) {
     newVector = c(newVector, max(y[[i]]$mean))
 
   }
+
   newVector = c(0, newVector)
   for (k in 1:length(x)) {
     x[[k]]$sample = 0
     for (i in 1:length(newVector)) {
+
       if (i < length(newVector)) {
-        x[[k]][x[[k]]$mean > newVector[i] & x[[k]]$mean <= newVector[i + 1], ]$sample = i
+
+        if (length(x[[k]][x[[k]]$mean > newVector[i] & x[[k]]$mean <= newVector[i + 1], ]) > 0) {
+
+          x[[k]][x[[k]]$mean > newVector[i] & x[[k]]$mean <= newVector[i + 1], ]$sample = i
+
+        }
+
       }
     }
+
+    print(paste0("round K = ", k, " complete", sep = ""))
+
   }
 
   return(x)

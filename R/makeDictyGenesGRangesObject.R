@@ -21,3 +21,36 @@ makeDictyGenes = function() {
 
   return (dictyGenesList)
 }
+
+
+
+#' promotersWithGeneId
+#'
+#' @param x makeDictyGenes() $dictyGenesPlus
+#' @param y makeDictyGenes() $dictyGenesNeg
+#' @param promoterStart bp (in +ve numbers) upstream from TSS
+#' @param promoterEnd bp (in +ve numbers) downstream from TSS
+#'
+#' @return GRange where makeDictyGenes is converted to a all Promoters With Gene Id GRange.
+#' Use this in getTagMatricesForDiffExpLevelBins if you want to use only a subset of genes which overlap with peakFile.
+#' @export
+promotersWithGeneId = function (x, y, promoterStart = 2500, promoterEnd = 2500) {
+
+  newGRangePlus = GenomicRanges::GRanges(seqnames = GenomeInfoDb::seqnames(x),
+                                     ranges = IRanges::IRanges(start=GenomicRanges::start(x) - (promoterStart),
+                                                               end= GenomicRanges::start(x) + promoterEnd,
+                                                               names=x$gene_id),
+                                     strand = GenomicRanges::strand(x),
+                                     geneId = x$gene_id)
+
+  newGRangeMinus = GenomicRanges::GRanges(seqnames = GenomeInfoDb::seqnames(y),
+                                          ranges = IRanges::IRanges(start=GenomicRanges::end(y) - (promoterEnd),
+                                                                    end= GenomicRanges::end(y) + promoterStart,
+                                                                    names=y$gene_id),
+                                          strand = GenomicRanges::strand(y),
+                                          geneId = y$gene_id)
+
+  return(c(newGRangePlus, newGRangeMinus))
+
+}
+

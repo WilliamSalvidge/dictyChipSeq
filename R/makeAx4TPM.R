@@ -23,6 +23,7 @@ makeAx4TPM = function(x) {
   dictyGenesWidth = GenomicRanges::width(dicty_genes)
   names(dictyGenesWidth) = dicty_genes@elementMetadata$gene_id
 
+  # Take only genes that appear in my ax4 sequencing and the dictyGenesWidth variable
   ax4VegRawInDictyGenesWidth = ax4_veg_raw[row.names(ax4_veg_raw) %in% names(dictyGenesWidth), ]
   dictyGenesWidthInAx4VegRaw = dictyGenesWidth[names(dictyGenesWidth) %in% row.names(ax4VegRawInDictyGenesWidth)]
   ax4VegRawInDictyGenesWidth = ax4VegRawInDictyGenesWidth[order(row.names(ax4VegRawInDictyGenesWidth)), ]
