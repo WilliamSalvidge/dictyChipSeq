@@ -1,5 +1,5 @@
 # dictyChipSeq
-Collection of functions for Chip-Seq Analysis
+Collection of functions for Chip-Seq Analysis in Dictyostelium
 
 To install this repo
 ```
