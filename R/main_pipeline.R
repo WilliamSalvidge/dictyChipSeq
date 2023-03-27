@@ -14,6 +14,7 @@ mainPipeLine = function(x, y, bins = 10, subsetGenes = NULL) {
 
   ax4 = makeAx4TPM(y)
   ax4Bins = SplitIntoBins(ax4, bins)
+  set1Degs = getSet1DEGS(y)
 
   dictyPromoters = makeDictyPromotersGrangesObject()
   dictyGenes = makeDictyGenes()
@@ -98,8 +99,6 @@ mainPipeLine = function(x, y, bins = 10, subsetGenes = NULL) {
 
   print("plotFunctionWillDictyChip completed")
   print(paste0("Current time elapsed = ", (Sys.time() - mainPipeStartTime), sep = ""))
-
-  set1Degs = getSet1DEGS(y)
 
   w = set1DegOverlapNumbers(a, set1_up = set1Degs[["set1_up"]], set1_down = set1Degs[["set1_down"]])
 
